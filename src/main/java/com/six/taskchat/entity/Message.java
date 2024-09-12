@@ -1,31 +1,39 @@
 package com.six.taskchat.entity;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
 /**
  * The persistent class for the messages database table.
  * 
  */
 @Entity
-@Table(name="messages")
-@NamedQuery(name="Message.findAll", query="SELECT m FROM Message m")
+@Table(name = "messages")
+@NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m")
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Use IDENTITY for auto-increment
 	private Integer id;
 
 	private String author;
 
 	private String content;
 
-	@Column(name="created_at")
+	@Column(name = "created_at")
 	private Timestamp createdAt;
 
-	//bi-directional many-to-one association to Category
+	// bi-directional many-to-one association to Category
 	@ManyToOne
 	private Category category;
 

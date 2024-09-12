@@ -2,6 +2,9 @@ package com.six.taskchat.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +32,7 @@ public class Category implements Serializable {
 
 	// bi-directional many-to-one association to Message
 	@OneToMany(mappedBy = "category")
+	@JsonIgnore
 	private List<Message> messages;
 
 	public Category() {
@@ -52,6 +56,14 @@ public class Category implements Serializable {
 
 	public List<Message> getMessages() {
 		return this.messages;
+	}
+
+	public Integer getTotalMessages() {
+		if (Objects.nonNull(this.messages)) {
+			return this.messages.size();
+		}
+
+		return 0;
 	}
 
 	public void setMessages(List<Message> messages) {
