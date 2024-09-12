@@ -40,6 +40,22 @@ public class Message implements Serializable {
 	public Message() {
 	}
 
+	public Message(Long id, String author, Long categoryId) {
+		this.id = id.intValue(); // Assuming the id is Integer in your entity
+		this.author = author;
+		this.category = new Category(); // Create a new Category
+		this.category.setId(categoryId.intValue()); // Set the category ID
+	}
+
+	public Message(Integer id, String author, String content, Timestamp createdAt, Category category) {
+		super();
+		this.id = id;
+		this.author = author;
+		this.content = content;
+		this.createdAt = createdAt;
+		this.category = category;
+	}
+
 	public Integer getId() {
 		return this.id;
 	}
